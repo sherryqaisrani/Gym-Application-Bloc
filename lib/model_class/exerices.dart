@@ -1,4 +1,6 @@
-class Exercise {
+import 'package:equatable/equatable.dart';
+
+class Exercise extends Equatable {
   String? title;
   int? prelude;
   int? duration;
@@ -20,4 +22,11 @@ class Exercise {
     "prelude":prelude,
     "duration": duration
   } ;
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [title, prelude, duration, index, startTime];
+  @override
+  // TODO: implement stringify
+  bool? get stringify => true;
 }

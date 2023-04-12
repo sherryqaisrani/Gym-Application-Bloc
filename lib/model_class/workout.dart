@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:gym_app_bloc/model_class/exerices.dart';
 
-class Workout{
+class Workout extends Equatable{
+
   final String? title;
   final List<Exercise> exercises;
 
@@ -9,17 +11,26 @@ class Workout{
 
   factory Workout.fromJson(Map<String, dynamic> json){
     // return Workout(title: , exerices: exerices)
-    List<Exercise> exercise = [];
+    List<Exercise> exercises = [];
     int index =0;
     int startTime = 0;
-    for(var ex in (json['exercise'] as Iterable)){
-      exercise.add(Exercise.fromJson(json, index, startTime));
+    for(var ex in (json['exercises'] as Iterable)){
+      exercises.add(Exercise.fromJson(ex, index, startTime));
       index++;
-      startTime += exercise.last.prelude! + exercise.last.duration!;
+      print(index);
+      startTime += exercises.last.prelude! + exercises.last.duration!;
     }
-    return Workout(title: json['title'], exercises: exercise);
+    return Workout(title: json['title'], exercises: exercises);
   }
 
   Map<String,dynamic> toJson()=> {'title': title, 'exercise':exercises};
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [title, exercises];
+
+  @override
+  // TODO: implement stringify
+  bool? get stringify => true;
 
 }
