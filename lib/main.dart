@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           }
           return workoutBloc;
         },
-        child: MyHomePage(),
+        child: const MyHomePage(),
       ),
     );
   }
@@ -48,24 +48,65 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bloc Demo'),
+        title: const Text('Workout Time'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.event_available,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.settings,
+            ),
+          ),
+        ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: BlocBuilder<WorkoutBloc, List<Workout>>(
-          builder: (context, state) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  'Hi',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ],
-            );
-          },
+          builder: (context, state) => ExpansionPanelList.radio(
+            children: state
+                .map(
+                  (workout) => ExpansionPanelRadio(
+                    value: workout,
+                    headerBuilder: (context, isExpanded) => ListTile(
+                      visualDensity: const VisualDensity(
+                        horizontal: 0,
+                        vertical: VisualDensity.maximumDensity,
+                      ),
+                      leading: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.edit,
+                        ),
+                      ),
+                      title: Text(workout.title!),
+                    ),
+                    body: ListView.builder(
+                      itemCount: workout.exercises.length,
+                      scrollDirection: Axis.vertical,
+                      
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => ListTile(
+                        visualDensity: const VisualDensity(
+                          horizontal: 0,
+                          vertical: VisualDensity.maximumDensity,
+                        ),
+                        leading: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.edit,
+                          ),
+                        ),
+                        title: Text(workout.exercises[index].title!),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
