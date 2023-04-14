@@ -26,7 +26,7 @@ class Workout extends Equatable{
   Map<String,dynamic> toJson()=> {'title': title, 'exercise':exercises};
 
   int getTotal(){
-    int time = exercises.fold(0, (previousValue, element) => element.duration! + element.prelude!);
+    int time = exercises.fold(0, (previousValue, element) =>previousValue+ element.duration! + element.prelude!);
     return time;
   }  
   @override

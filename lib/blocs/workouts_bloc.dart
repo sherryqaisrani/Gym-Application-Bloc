@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_app_bloc/model_class/workout.dart';
 
-class WorkoutBloc extends Cubit<List<Workout>> {
-  WorkoutBloc(): super([]);
+class WorkoutsBloc extends Cubit<List<Workout>> {
+  WorkoutsBloc(): super([]);
   getLoadData() async{
   final   List<Workout> workoutList = [];
    final workoutJson =   jsonDecode(await rootBundle.loadString("assets/workouts.json"));
